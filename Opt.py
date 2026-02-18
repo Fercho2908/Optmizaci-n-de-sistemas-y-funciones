@@ -65,7 +65,7 @@ class State(rx.State):
                 raise ValueError("Alpha, Tolerancia y Iteraciones deben ser números válidos.")
 
             # Call gradiente function
-            sol, it, res = gradiente(
+            sol = gradiente(
                 f,
                 variables,
                 x0,
@@ -75,8 +75,8 @@ class State(rx.State):
             )
             
             self.solucion = str(sol)
-            self.iteraciones = str(it)
-            self.resultados = str(res)
+            # self.iteraciones = str(it)
+            # self.resultados = str(res)
 
         except Exception as e:
             self.error_message = str(e)
@@ -85,7 +85,7 @@ def index() -> rx.Component:
     # Welcome Page (Index)
     return rx.center(
         rx.vstack(
-            rx.heading("Ascenso y Descenso Acelerado", font_size="2em"),
+            rx.heading("Ascenso y Descenso Acelerado", font_size="2em", padding="1em"),
             
             rx.card(
                 rx.vstack(
@@ -174,12 +174,12 @@ def index() -> rx.Component:
                 rx.card(
                     rx.vstack(
                         rx.heading("Resultados", size="4"),
-                        rx.text(f"Solución: {State.solucion}"),
-                        rx.text(
-                            f"{State.resultados}", 
-                            white_space="pre-wrap"
+                        rx.text(f"{State.solucion}", white_space="pre-wrap"),
+                        # rx.text(
+                        #     f"{State.resultados}", 
+                        #     white_space="pre-wrap"
                             
-                        ),
+                        # ),
                     ),
                     width="50vw",
                     max_width="600px",
@@ -193,9 +193,10 @@ def index() -> rx.Component:
             ),
             
             align_items="center",
+            
         ),
-        height="200vh",
-        background_color="#f5f5f5",
+        height="auto",
+        #background_color="#f5f5f5",
     )
 
 

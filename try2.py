@@ -1,20 +1,7 @@
 import numpy as np
 import sympy as sp
 
-def gradiente(
-    f,
-    variables,
-    x0,
-    tol=1,
-    max_iter=50,
-    modo="min"
-):
-    """
-    f         : función simbólica (sympy)
-    variables : lista de variables simbólicas [x, y, ...]
-    x0        : punto inicial (numpy array)
-    """
-
+def gradiente(f, variables, x0, tol=1, max_iter=50, modo="min"):
     # 1. Gradiente simbólico (una sola vez)
     grad_f = [sp.diff(f, v) for v in variables]
 
@@ -24,8 +11,6 @@ def gradiente(
     points = ""
 
     for k in range(max_iter):
-        
-        points += f"Iteración {k}: {xk}\n"
         
         # 2. Evaluar gradiente en x_k
         grad_eval = np.array(
@@ -38,9 +23,11 @@ def gradiente(
             print(f"Convergió en {k} iteraciones")
             print(points)
             
-            return xk, k, points
+            return points
+        
+        points += f"Iteración {k+1}: {xk}\n"
 
-        # 3. Construir x_{k+1} = x_k - alpha * grad
+        # 3. Construir x_{k+1} = x_k +/- alpha * grad
         if modo == "min":
             x_next = [
                 xk[i] - alpha * grad_eval[i]
@@ -83,6 +70,5 @@ def gradiente(
 
 # x0 = np.array([1.0, 2.0])
 
-# sol = gradiente_metodo_clase(f, [x, y], x0)
-# print("Solución:", sol)
+# gradiente(f, [x, y], x0)
 
